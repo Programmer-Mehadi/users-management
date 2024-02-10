@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import UserCard from "./UserCard"
 import Loader from "../../components/shared/Loader"
+import Filter from "./Filter"
 
 export default function Home() {
   const [users, setUsers] = useState(null)
@@ -10,6 +11,8 @@ export default function Home() {
     limit: 10,
     page: 0,
   })
+  const [searchValue, setSearchValue] = useState("")
+  const [sortBy, setSortBy] = useState("")
 
   async function fetchData(limit = paginations.limit, page = paginations.page) {
     fetch(`https://dummyjson.com/users?limit=${limit}&skip=${page * limit}`)
@@ -17,6 +20,36 @@ export default function Home() {
       .then((data) => {
         setUsers(data)
       })
+  }
+
+  function sortUsersData(by) {
+    setSortBy(by)
+    const preUsers = users.users
+
+    let sortedUsers = [...preUsers]
+
+    switch (by) {
+      case "name":
+        sortedUsers.sort((a, b) =>
+          `${a.firstName} ${a.maidenName} ${a.lastName}`.localeCompare(
+            `${b.firstName} ${b.maidenName} ${b.lastName}`
+          )
+        )
+        break
+      case "company":
+        sortedUsers.sort((a, b) => a.company.name.localeCompare(b.company.name))
+        break
+      case "email":
+        sortedUsers.sort((a, b) => a.email.localeCompare(b.email))
+        break
+      default:
+        break
+    }
+
+    setUsers({
+      ...users,
+      users: sortedUsers,
+    })
   }
 
   useEffect(() => {
@@ -31,11 +64,27 @@ export default function Home() {
         </div>
       ) : (
         <div>
+          <Filter
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            sortBy={sortBy}
+            sortUsersData={sortUsersData}
+          />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {users.users.length === 0 ? (
               <p>No users found</p>
             ) : (
-              users.users.map((user) => <UserCard user={user} key={user.id} />)
+              users.users
+                .filter((user) => {
+                  if (
+                    `${user.firstName} ${user.maidenName} ${user.lastName} ${user.email}`
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase())
+                  ) {
+                    return user
+                  }
+                })
+                .map((user) => <UserCard user={user} key={user.id} />)
             )}
           </div>
           <div className="py-10 flex justify-center items-center gap-4">
