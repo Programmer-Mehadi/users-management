@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"
+import { Link, createBrowserRouter } from "react-router-dom"
 import App from "../App"
 import MainLayout from "../Layout/MainLayout"
 import UserDetails from "../pages/UserDetails/UserDetails"
@@ -22,6 +22,17 @@ const router = createBrowserRouter([
         element: <AddUser />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: (
+      <div className="text-center p-5 min-h-screen flex flex-col justify-center items-center">
+        <h1 className="text-3xl font-bold">Not Found</h1>
+        <Link to="/" className="underline">
+          Go To Home
+        </Link>
+      </div>
+    ),
   },
 ])
 
