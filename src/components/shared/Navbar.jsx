@@ -30,6 +30,9 @@ export default function Navbar() {
                 <Link to="/">Home</Link>
               </li>
               <li>
+                <Link to="/add-user">Add User</Link>
+              </li>
+              <li>
                 <a>About Us</a>
               </li>
               <li>
@@ -45,6 +48,9 @@ export default function Navbar() {
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/add-user">Add User</Link>
             </li>
             <li>
               <a>About Us</a>
