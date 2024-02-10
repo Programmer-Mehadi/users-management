@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom"
+
 export default function UserCard({ user }) {
   return (
     <div className="p-4 bg-white shadow-sm border rounded-lg">
@@ -10,7 +12,10 @@ export default function UserCard({ user }) {
           alt={`${user.firstName} ${user.lastName}`}
         />
         <div>
-          <h2 className="text-lg font-semibold">{`${user.firstName} ${user.lastName}`}</h2>
+          <Link
+            to={`/user/${user.id}`}
+            className="text-lg font-semibold"
+          >{`${user.firstName} ${user.lastName}`}</Link>
           <p className="text-gray-500">{user.email}</p>
         </div>
       </div>
