@@ -15,7 +15,7 @@ export default function Filter({
         className="input input-bordered w-full max-w-xs rounded-[4px]"
       />
       <select
-        className="select select-bordered w-full max-w-xs"
+        className="select select-bordered w-full max-w-xs rounded-[4px]"
         value={sortBy}
         onChange={(e) => {
           sortUsersData(e.target.value)

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 export default function UserCard({ user }) {
   return (
     <div className="p-4 bg-white shadow-sm border rounded-lg">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex gap-5 items-center flex-wrap justify-between mb-4">
         <img
           className="w-12 h-12 rounded-full object-cover"
           src={user.image}
